@@ -1,3 +1,7 @@
+# 封装STL主要两个方向：
+1. 组合
+2. 继承
+
 # Thread-safe wrapper for std::map
 Thread-safe C++11 wrapper for std::map with [readers-writer lock](https://en.wikipedia.org/wiki/Readers%E2%80%93writer_lock).
 To use it, copy `tsmap.h` and `ReadersWriterLock.h` into your project and include `tsmap.h`.
