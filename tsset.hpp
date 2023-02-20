@@ -30,12 +30,49 @@ class tsset : public std::set<Key> {
   using value_type = typename std::set<Key, Compare, Alloc>::value_type;
   // size_type
   using size_type = typename std::set<Key, Compare, Alloc>::size_type;
+  // key_compare
+  using key_compare = typename std::set<Key, Compare, Alloc>::key_compare;
+  // allocator_type
+  using allocator_type = typename std::set<Key, Compare, Alloc>::allocator_type;
   // set
   using set = typename std::set<Key, Compare, Alloc>;
   // mtx
   mutable base::AtomicRWLock mtx;
 
  public:
+  /**
+   * @brief Construct a new tsset object
+   *
+   * @param comp compare
+   * @param alloc alloc
+   */
+  explicit tsset(const key_compare& comp = key_compare(),
+                 const allocator_type& alloc = allocator_type()) noexcept
+      : std::set<Key, Compare, Alloc>(comp, alloc) {}
+  /**
+   * @brief Copy construct a new tsset object
+   *
+   * @param x x
+   */
+  explicit tsset(const set& x) : std::set<Key, Compare, Alloc>(x) {}
+  /**
+   * @brief Construct a new tsset object
+   *
+   * @param x x
+   */
+  tsset(const tsset& x) : std::set<Key, Compare, Alloc>(x) {}
+  /**
+   * @brief Construct a new tsset object
+   *
+   * @param x x
+   */
+  explicit tsset(set&& x) : std::set<Key, Compare, Alloc>(x) {}
+  /**
+   * @brief Construct a new tsset object
+   *
+   * @param x x
+   */
+  tsset(tsset&& x) : std::set<Key, Compare, Alloc>(x) {}
   /**
    * @brief operator=
    *
@@ -44,7 +81,8 @@ class tsset : public std::set<Key> {
    */
   tsset<Key, Compare, Alloc>& operator=(const set& x) noexcept {
     base::WriteLockGuard<base::AtomicRWLock> wlg{mtx};
-    return this->std::set<Key, Compare, Alloc>::operator=(x);
+    this->std::set<Key, Compare, Alloc>::operator=(x);
+    return *this;
   }
   /**
    * @brief operator=
@@ -55,7 +93,8 @@ class tsset : public std::set<Key> {
   tsset<Key, Compare, Alloc>& operator=(
       const tsset<Key, Compare, Alloc>& x) noexcept {
     base::WriteLockGuard<base::AtomicRWLock> wlg{mtx};
-    return this->std::set<Key, Compare, Alloc>::operator=(x);
+    this->std::set<Key, Compare, Alloc>::operator=(x);
+    return *this;
   }
   /**
    * @brief operator=
@@ -65,7 +104,8 @@ class tsset : public std::set<Key> {
    */
   tsset<Key, Compare, Alloc>& operator=(set&& x) noexcept {
     base::WriteLockGuard<base::AtomicRWLock> wlg{mtx};
-    return this->std::set<Key, Compare, Alloc>::operator=(x);
+    this->std::set<Key, Compare, Alloc>::operator=(x);
+    return *this;
   }
   /**
    * @brief operator=
@@ -76,7 +116,8 @@ class tsset : public std::set<Key> {
   tsset<Key, Compare, Alloc>& operator=(
       tsset<Key, Compare, Alloc>&& x) noexcept {
     base::WriteLockGuard<base::AtomicRWLock> wlg{mtx};
-    return this->std::set<Key, Compare, Alloc>::operator=(x);
+    this->std::set<Key, Compare, Alloc>::operator=(x);
+    return *this;
   }
   /**
    * @brief operator=
@@ -87,7 +128,8 @@ class tsset : public std::set<Key> {
   tsset<Key, Compare, Alloc>& operator=(
       std::initializer_list<value_type> il) noexcept {
     base::WriteLockGuard<base::AtomicRWLock> wlg{mtx};
-    return this->std::set<Key, Compare, Alloc>::operator=(il);
+    this->std::set<Key, Compare, Alloc>::operator=(il);
+    return *this;
   }
   /**
    * @brief empty
@@ -270,5 +312,5 @@ class tsset : public std::set<Key> {
                   this->std::set<Key, Compare, Alloc>::end(), pred);
   }
 };
-}  // namespace 
+}  // namespace tscontainer
 #endif  // __TSSET_H__
