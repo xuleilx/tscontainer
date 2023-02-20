@@ -6,9 +6,9 @@
 #include <mutex>
 #include <set>
 #include <utility>
-#include "adfsCore/Common/base/atomic_rw_lock.hpp"
-#include "adfsCore/Common/base/rw_lock_guard.hpp"
-namespace adfs {
+#include "atomic_rw_lock.hpp"
+#include "rw_lock_guard.hpp"
+namespace tscontainer {
 /**
  * @brief tsset
  *
@@ -270,5 +270,5 @@ class tsset : public std::set<Key> {
                   this->std::set<Key, Compare, Alloc>::end(), pred);
   }
 };
-}  // namespace adfs
+}  // namespace 
 #endif  // __TSSET_H__
