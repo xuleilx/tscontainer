@@ -1,3 +1,14 @@
+/*****************************************************************************
+* ADFS
+
+*Copyright(c) 2022 Cambricon SingGo(Nanjing) Technology Co., Ltd.
+*All Rights Reserved
+
+*THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY
+*INFORMATION WHICH ARE THE PROPERTY OF CAMBRICON
+*SING GO OR ITS LICENSORS AND IS
+*SUBJECT TO LICENSE TERMS.
+ ******************************************************************************/
 #ifndef __TSMAP_H__
 #define __TSMAP_H__
 #include <algorithm>
@@ -141,7 +152,8 @@ class tsmap : public std::map<Key, T, Compare, Alloc> {
    */
   tsmap<Key, T, Compare, Alloc>& operator=(const map& x) noexcept {
     base::WriteLockGuard<base::AtomicRWLock> wlg{mtx};
-    return this->std::map<Key, T, Compare, Alloc>::operator=(x);
+    this->std::map<Key, T, Compare, Alloc>::operator=(x);
+    return *this;
   }
   /**
    * @brief operator=
@@ -152,7 +164,8 @@ class tsmap : public std::map<Key, T, Compare, Alloc> {
   tsmap<Key, T, Compare, Alloc>& operator=(
       const tsmap<Key, T, Compare, Alloc>& x) noexcept {
     base::WriteLockGuard<base::AtomicRWLock> wlg{mtx};
-    return this->std::map<Key, T, Compare, Alloc>::operator=(x);
+    this->std::map<Key, T, Compare, Alloc>::operator=(x);
+    return *this;
   }
   /**
    * @brief operator=
@@ -162,7 +175,8 @@ class tsmap : public std::map<Key, T, Compare, Alloc> {
    */
   tsmap<Key, T, Compare, Alloc>& operator=(map&& x) noexcept {
     base::WriteLockGuard<base::AtomicRWLock> wlg{mtx};
-    return this->std::map<Key, T, Compare, Alloc>::operator=(x);
+    this->std::map<Key, T, Compare, Alloc>::operator=(x);
+    return *this;
   }
   /**
    * @brief operator=
@@ -173,7 +187,8 @@ class tsmap : public std::map<Key, T, Compare, Alloc> {
   tsmap<Key, T, Compare, Alloc>& operator=(
       tsmap<Key, T, Compare, Alloc>&& x) noexcept {
     base::WriteLockGuard<base::AtomicRWLock> wlg{mtx};
-    return this->std::map<Key, T, Compare, Alloc>::operator=(x);
+    this->std::map<Key, T, Compare, Alloc>::operator=(x);
+    return *this;
   }
   /**
    * @brief operator=
@@ -184,7 +199,8 @@ class tsmap : public std::map<Key, T, Compare, Alloc> {
   tsmap<Key, T, Compare, Alloc>& operator=(
       std::initializer_list<value_type> il) noexcept {
     base::WriteLockGuard<base::AtomicRWLock> wlg{mtx};
-    return this->std::map<Key, T, Compare, Alloc>::operator=(il);
+    this->std::map<Key, T, Compare, Alloc>::operator=(il);
+    return *this;
   }
   /**
    * @brief empty
@@ -489,4 +505,4 @@ class tsmap : public std::map<Key, T, Compare, Alloc> {
   }
 };
 }  // namespace adfs
-#endif  // __TSMAP_H__
+#endif  // __CONCURRENTMAP_H__
