@@ -1,14 +1,3 @@
-/*****************************************************************************
-* ADFS
-
-*Copyright(c) 2022 Cambricon SingGo(Nanjing) Technology Co., Ltd.
-*All Rights Reserved
-
-*THIS WORK CONTAINS TRADE SECRET AND PROPRIETARY
-*INFORMATION WHICH ARE THE PROPERTY OF CAMBRICON
-*SING GO OR ITS LICENSORS AND IS
-*SUBJECT TO LICENSE TERMS.
- ******************************************************************************/
 #ifndef __TSMAP_H__
 #define __TSMAP_H__
 #include <algorithm>
@@ -17,9 +6,9 @@
 #include <memory>
 #include <mutex>
 #include <utility>
-#include "adfsCore/Common/base/atomic_rw_lock.hpp"
-#include "adfsCore/Common/base/rw_lock_guard.hpp"
-namespace adfs {
+#include "atomic_rw_lock.hpp"
+#include "rw_lock_guard.hpp"
+namespace tscontainer {
 /**
  * @brief tsmap
  *
@@ -504,5 +493,5 @@ class tsmap : public std::map<Key, T, Compare, Alloc> {
                   this->std::map<Key, T, Compare, Alloc>::end(), pred);
   }
 };
-}  // namespace adfs
+}  // namespace tscontainer
 #endif  // __CONCURRENTMAP_H__
